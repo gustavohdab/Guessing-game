@@ -11,11 +11,7 @@ let attempts = 1
 // events
 buttonTry.addEventListener("click", handleTryClick)
 buttonPlayAgain.addEventListener("click", handleResetClick)
-document.addEventListener('keydown', function(e){
-    if (e.key == 'Enter' && screen1.classList.contains('hide')){
-        handleResetClick()
-    }
-})
+document.addEventListener('keydown', enterTogglePlayAgain)
 
 // Functions
 function handleTryClick(event){ // callback function
@@ -29,6 +25,20 @@ function handleTryClick(event){ // callback function
 
         document.querySelector(".screen2 h2").innerText = `Yay! you got it in ${attempts} tries`
     }
+
+    if(Number(inputNumber.value) < 0 ){
+        alert("Only between 0 and 10.")
+        attempts = 0
+    }
+    if(Number(inputNumber.value) > 10 ){
+        alert("Only between 0 and 10.")
+        attempts = 0
+    }
+    if(Number(inputNumber.value) == false ) {
+        alert("Please enter a number.")
+        attempts = 0
+    }
+
     inputNumber.value = ""
     attempts++;
 }
@@ -44,7 +54,13 @@ function toggleScreenReset(){
     screen2.classList.toggle("hide")
 }
 
-// extra: dark theme
+function enterTogglePlayAgain(e){
+    if (e.key == 'Enter' && screen1.classList.contains('hide')){
+        handleResetClick()
+    }
+}
+
+// extra: basic dark theme
 toggle.onclick = function(){
     toggle.classList.toggle("active")
     body.classList.toggle("active")
